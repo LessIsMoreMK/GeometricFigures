@@ -15,7 +15,7 @@ namespace GeometricFigures
     public partial class MainWindow : Window
     {
         public static MainWindow AppWindow;
-        private int method = -1;
+        private int method = -2;
         List<Point> clicks = new List<Point>();
 
         public MainWindow()

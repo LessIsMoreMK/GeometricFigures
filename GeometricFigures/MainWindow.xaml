@@ -41,6 +41,7 @@
             <ListBoxItem >Brown</ListBoxItem>
             <ListBoxItem >Magenta</ListBoxItem>
             <ListBoxItem >Gold</ListBoxItem>
+            
         </ListBox>
         <ListBox Name="StrokeSize" Margin="380,28,238,376" Background="#647C90" Foreground="#E2DED0" FontWeight="Bold">
             <ListBoxItem >0</ListBoxItem>
