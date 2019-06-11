@@ -15,34 +15,40 @@ namespace GeometricFigures
     public partial class MainWindow : Window
     {
         public static MainWindow AppWindow;
-        private int method = -2;
+        private int method = -1;
         List<Point> clicks = new List<Point>();
+        enum Info
+        {
+            
+        }
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        public Point GetMousePosition()
+        public void GetMousePosition()
         {
-            Point pointToWindow = Mouse.GetPosition(this);
-            return PointToScreen(pointToWindow);
+            Point pointToWindow = Mouse.GetPosition(mainCanvas);
+            clicks.Add(pointToWindow);
         }
         private void Clicks(object sender, MouseButtonEventArgs e)
         {
-            clicks.Add(GetMousePosition());
+            GetMousePosition();
             CurrentActiviti.Content = "Choose "+(clicks.Count+1)+" point";
 
-            
-            if (clicks.Count == 2 && method == 0)
+            if(method==-1)
+                CurrentActiviti.Content = "Choose shape";
+            else if (clicks.Count == 2 && method == 0)
             {
-                Console.WriteLine(clicks[0]);
                 double r = Math.Sqrt(Math.Pow(clicks[0].X - clicks[1].X, 2) + Math.Pow(clicks[0].Y - clicks[1].Y, 2));
-                Circlee circle = new Circlee(clicks[0], 33);
+                Circlee circle = new Circlee(clicks[0], r);
                 ListBoxItem itm = new ListBoxItem();
                 itm.Content = "Circle Center: " + clicks[0] + " Radius: " + r;
                 Shapes.Items.Add(itm);
                 CurrentActiviti.Content = "Tadow!";
+                method = -1;
+                clicks.Clear();
             }
             else if(clicks.Count==3 && method ==1)
             {
@@ -51,6 +57,8 @@ namespace GeometricFigures
                 itm.Content = "Triangle Point A: " + clicks[0] + " Point B: " + clicks[1] + " Point C: " + clicks[2];
                 Shapes.Items.Add(itm);
                 CurrentActiviti.Content = "Tadow!";
+                method = -1;
+                clicks.Clear();
             }
             else if (clicks.Count == 4 && method == 2)
             {
@@ -59,6 +67,8 @@ namespace GeometricFigures
                 itm.Content = "Rectangle Point A: " + clicks[0] + " Point B: " + clicks[1]+ " Point B: " + clicks[1]+ " Point B: " + clicks[1];
                 Shapes.Items.Add(itm);
                 CurrentActiviti.Content = "Tadow!";
+                method = -1;
+                clicks.Clear();
             }
             else if (clicks.Count == 5 && method == 3)
             {
@@ -67,6 +77,8 @@ namespace GeometricFigures
                 itm.Content = "Pentagon Point A: " + clicks[0] + " Point B: " + clicks[1] + " Point C: " + clicks[2] + " Point D: " + clicks[3] + " Point E: " + clicks[4];
                 Shapes.Items.Add(itm);
                 CurrentActiviti.Content = "Tadow!";
+                method = -1;
+                clicks.Clear();
             }
 
         }
@@ -100,9 +112,16 @@ namespace GeometricFigures
 
         private void Button_Delete(object sender, RoutedEventArgs e)
         {
-            //TODO: Item not selected CANNOT DO (IF)
-            Shapes.Items.RemoveAt(Shapes.Items.IndexOf(Shapes.SelectedItem));
-           // mainCanvas.Children.Remove();
+            //Item not selected CANNOT DO (IF)
+            Shapes.Items.Clear();
+            mainCanvas.Children.Clear();
+            area.Content = "";
+            perimeter.Content = "";
+        }
+
+        private void ChangeItem(object sender, SelectionChangedEventArgs e)
+        {
+            Console.WriteLine("asdf");
         }
     }
 
@@ -127,9 +146,13 @@ namespace GeometricFigures
             main.perimeter.Content = "Perimeter: " + Perimeter();
 
             Ellipse elipse = new Ellipse();
+            elipse.Width = radius;
+            elipse.Height = radius;
+            elipse.SetValue(Canvas.LeftProperty, point1.X);
+            elipse.SetValue(Canvas.TopProperty, point1.Y);
+
             main.mainCanvas.Children.Add(elipse);
-            elipse.Width = point1.X;
-            elipse.Height = point1.Y;
+
 
             //Additional settings:
             BrushConverter bc = new BrushConverter();
@@ -157,7 +180,7 @@ namespace GeometricFigures
 
         public Trianglee(Point point1, Point point2, Point point3)
         {
-            a = Math.Sqrt(Math.Pow(point2.X - point1.X,2)+Math.Pow(point2.Y-point1.Y,2));
+            a = Math.Sqrt(Math.Pow(point2.X - point1.X,2) + Math.Pow(point2.Y-point1.Y,2));
             b = Math.Sqrt(Math.Pow(point2.X - point3.X, 2) + Math.Pow(point2.Y - point3.Y, 2));
             c = Math.Sqrt(Math.Pow(point1.X - point3.X, 2) + Math.Pow(point1.Y - point3.Y, 2));
 
@@ -167,7 +190,7 @@ namespace GeometricFigures
 
             Polygon triangle = new Polygon();
             main.mainCanvas.Children.Add(triangle);
-            Canvas.SetTop(triangle, 20);
+            Console.WriteLine(point1.X);
 
             PointCollection polygonPoints = new PointCollection();
             polygonPoints.Add(point1);
@@ -208,24 +231,18 @@ namespace GeometricFigures
             c = Math.Sqrt(Math.Pow(point4.X - point3.X, 2) + Math.Pow(point4.Y - point3.Y, 2));
             d = Math.Sqrt(Math.Pow(point1.X - point4.X, 2) + Math.Pow(point1.Y - point4.Y, 2));
 
-
-
-            main.area.Content = "Area: " + Area();
-            main.perimeter.Content = "Perimeter: " + Perimeter();
-
             System.Windows.Shapes.Polygon rectangle = new System.Windows.Shapes.Polygon();
-            main.mainCanvas.Children.Add(rectangle);
-
+            
             PointCollection rectaglePoints = new PointCollection();
             rectaglePoints.Add(point1);
             rectaglePoints.Add(point2);
             rectaglePoints.Add(point3);
             rectaglePoints.Add(point4);
-
             rectangle.Points = rectaglePoints;
+            main.mainCanvas.Children.Add(rectangle);
 
-            Canvas.SetLeft(rectangle, 50);
-            Canvas.SetTop(rectangle, 50);
+            main.perimeter.Content = "Perimeter: " + Perimeter();
+            main.area.Content = "Area " + Area(rectaglePoints);
 
             //Additional settings:
             BrushConverter bc = new BrushConverter();
@@ -240,7 +257,11 @@ namespace GeometricFigures
         }
         public double Area()
         {
-            return 1/2*a;
+            return 0;
+        }
+        public double Area(PointCollection points)
+        {
+            return Math.Abs(points.Take(points.Count - 1).Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y)).Sum() / 2);
         }
         public double Perimeter()
         {
@@ -261,8 +282,7 @@ namespace GeometricFigures
             d = Math.Sqrt(Math.Pow(point5.X - point4.X, 2) + Math.Pow(point5.Y - point4.Y, 2));
             e = Math.Sqrt(Math.Pow(point1.X - point5.X, 2) + Math.Pow(point1.Y - point5.Y, 2));
 
-            main.area.Content = "Cannot calculate area";
-            main.perimeter.Content = "Perimeter: " + Perimeter();
+            
 
 
             Polygon polygon = new Polygon();
@@ -274,8 +294,10 @@ namespace GeometricFigures
             polygonPoints.Add(point3);
             polygonPoints.Add(point4);
             polygonPoints.Add(point5);
-
             polygon.Points = polygonPoints;
+
+            main.area.Content = "Area " + Area(polygonPoints);
+            main.perimeter.Content = "Perimeter: " + Perimeter();
 
             //Additional settings:
             BrushConverter bc = new BrushConverter();
@@ -289,6 +311,10 @@ namespace GeometricFigures
         public double Area()
         {
             return 0;
+        }
+        public double Area(PointCollection points)
+        {
+            return Math.Abs(points.Take(points.Count - 1).Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y)).Sum() / 2);
         }
         public double Perimeter()
         {
