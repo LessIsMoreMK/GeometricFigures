@@ -17,10 +17,6 @@ namespace GeometricFigures
         public static MainWindow AppWindow;
         private int method = -1;
         List<Point> clicks = new List<Point>();
-        enum Info
-        {
-            
-        }
 
         public MainWindow()
         {
