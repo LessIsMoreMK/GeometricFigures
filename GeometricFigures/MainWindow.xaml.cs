@@ -32,7 +32,6 @@ namespace GeometricFigures
         {
             GetMousePosition();
             currentActiviti.Content = "Choose "+(clicks.Count+1)+" point";
-            
             if(method==-1)
                 currentActiviti.Content = "Choose shape";
             else if (clicks.Count == 2 && method == 0)
