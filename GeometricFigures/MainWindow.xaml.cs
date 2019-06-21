@@ -16,9 +16,7 @@ namespace GeometricFigures
     {
         public static MainWindow AppWindow;
         private int method = -1;
-        private int number = 0;
         private List<Point> clicks = new List<Point>();
-        private List<IShape> shapes = new List<IShape>();
 
         public MainWindow()
         {
@@ -55,11 +53,9 @@ namespace GeometricFigures
                 traingle.point2 = clicks[1];
                 traingle.point3 = clicks[2];
                 traingle.Make();
-                shapes.Add(traingle);
                 
                 ListBoxItem itm = new ListBoxItem();
-                itm.Content = number+" Triangle Point A: " + clicks[0] + " Point B: " + clicks[1] + " Point C: " + clicks[2];
-                number++;
+                itm.Content ="Triangle Point A: " + clicks[0] + " Point B: " + clicks[1] + " Point C: " + clicks[2];
                 Shapes.Items.Add(itm);
 
                 currentActiviti.Content = "Tadow!";
@@ -74,11 +70,9 @@ namespace GeometricFigures
                 rectangle.point3 = clicks[2];
                 rectangle.point4 = clicks[3];
                 rectangle.Make();
-                shapes.Add(rectangle);
 
                 ListBoxItem itm = new ListBoxItem();
-                itm.Content = number + " Rectangle Point A: " + clicks[0] + " Point B: " + clicks[1]+ " Point B: " + clicks[1]+ " Point B: " + clicks[1];
-                number++;
+                itm.Content ="Rectangle Point A: " + clicks[0] + " Point B: " + clicks[1]+ " Point B: " + clicks[1]+ " Point B: " + clicks[1];
                 Shapes.Items.Add(itm);
 
                 currentActiviti.Content = "Tadow!";
@@ -138,11 +132,6 @@ namespace GeometricFigures
         private void Change(object sender, SelectionChangedEventArgs e)
         {
             Object obj = Shapes.SelectedItem;
-            
-            Triangle traingle = new Triangle();
-            traingle.Make();
-            Console.WriteLine(obj);
-            area.Content = "1";
         }
     }
 }

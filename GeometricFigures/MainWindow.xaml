@@ -15,7 +15,7 @@
         <Button Content="Triangle" Margin="685,10,10,415" Click="Button_Triangle" Background="#647C90" Foreground="#4E4F50" FontSize="18" FontWeight="Bold"/>
         <Button Content="Rectangle" Margin="567,51,120,374" Click="Button_Rectangle" Background="#647C90" Foreground="#4E4F50" FontSize="18" FontWeight="Bold"/>
         <Button Content="Pentagon" Margin="685,51,10,374" Click="Button_Pentagon" Background="#647C90" Foreground="#4E4F50" FontSize="18" FontWeight="Bold"/>
-        <Button Content="Delete All" Margin="620,351,56,74" Click="Button_Delete" Background="#647C90" Foreground="#4E4F50" FontSize="18" FontWeight="Bold"/>
+        <Button Content="Delete" Margin="620,351,56,74" Click="Button_Delete" Background="#647C90" Foreground="#4E4F50" FontSize="18" FontWeight="Bold"/>
 
         <ListBox Name="Shapes" Margin="567,97,10,214"  Background="#647C90" Foreground="#E2DED0" FontWeight="Bold" SelectionChanged="Change" />
         <ListBox Name="Colors" Margin="22,28,610,376" Background="#647C90" Foreground="#E2DED0" FontWeight="Bold">
