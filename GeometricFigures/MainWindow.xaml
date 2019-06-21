@@ -8,8 +8,8 @@
         Title="GeometricFigures" Height="500" Width="800"
         ResizeMode="NoResize" Background="#4E4F50" >
 
-    <Grid HorizontalAlignment="Right" Width="800" Margin="-8,0,0,0">
-        <Canvas Name="mainCanvas" HorizontalAlignment="Left" Height="336" Margin="22,95,0,0" VerticalAlignment="Top" Width="540" Background="#E2DED0" MouseLeftButtonUp="Clicks"/>
+    <Grid Name="mainGrid" x:FieldModifier="public" HorizontalAlignment="Right" Width="800" Margin="-8,0,0,0">
+        <Canvas x:Name="mainCanvas" x:FieldModifier="public" HorizontalAlignment="Left" Height="336" Margin="22,95,0,0" VerticalAlignment="Top" Width="540" Background="#E2DED0" MouseLeftButtonUp="Clicks" />
 
         <Button Content="Circle" Margin="567,10,120,415" Click="Button_Circle" Background="#647C90" Foreground="#4E4F50" FontSize="18" FontWeight="Bold"/>
         <Button Content="Triangle" Margin="685,10,10,415" Click="Button_Triangle" Background="#647C90" Foreground="#4E4F50" FontSize="18" FontWeight="Bold"/>
@@ -17,7 +17,7 @@
         <Button Content="Pentagon" Margin="685,51,10,374" Click="Button_Pentagon" Background="#647C90" Foreground="#4E4F50" FontSize="18" FontWeight="Bold"/>
         <Button Content="Delete All" Margin="620,351,56,74" Click="Button_Delete" Background="#647C90" Foreground="#4E4F50" FontSize="18" FontWeight="Bold"/>
 
-        <ListBox Name="Shapes" Margin="567,97,10,214"  Background="#647C90" Foreground="#E2DED0" FontWeight="Bold"/>
+        <ListBox Name="Shapes" Margin="567,97,10,214"  Background="#647C90" Foreground="#E2DED0" FontWeight="Bold" SelectionChanged="Change" />
         <ListBox Name="Colors" Margin="22,28,610,376" Background="#647C90" Foreground="#E2DED0" FontWeight="Bold">
             <ListBoxItem >Red</ListBoxItem>
             <ListBoxItem IsSelected="True" >Black</ListBoxItem>
@@ -41,7 +41,6 @@
             <ListBoxItem >Brown</ListBoxItem>
             <ListBoxItem >Magenta</ListBoxItem>
             <ListBoxItem >Gold</ListBoxItem>
-            
         </ListBox>
         <ListBox Name="StrokeSize" Margin="380,28,238,376" Background="#647C90" Foreground="#E2DED0" FontWeight="Bold">
             <ListBoxItem >0</ListBoxItem>
@@ -56,9 +55,9 @@
         </ListBox>
 
 
-        <Label Content="Area: " Name="area" Margin="567,260,10,170" Foreground="#E2DED0" FontSize="14" FontWeight="Bold" />
-        <Label Content="Perimeter: " Name="perimeter" Margin="567,304,10,125" Foreground="#E2DED0" FontSize="14" FontWeight="Bold" />
-        <Label Name="CurrentActiviti" Margin="22,431,331,0" Content="Choose Shape" Foreground="#E2DED0" FontSize="14" FontWeight="Bold" ></Label>
+        <Label Name="area" Content="Area: " Margin="567,260,10,170" Foreground="#E2DED0" FontSize="14" FontWeight="Bold" />
+        <Label Name="perimeter" Content="Perimeter: "  Margin="567,304,10,125" Foreground="#E2DED0" FontSize="14" FontWeight="Bold" />
+        <Label Name="currentActiviti" Margin="22,431,331,0" Content="Choose Shape" Foreground="#E2DED0" FontSize="14" FontWeight="Bold" ></Label>
         <Label Content="Color:" HorizontalAlignment="Left" Margin="22,0,0,0" VerticalAlignment="Top" Foreground="#E2DED0" FontSize="14" FontWeight="Bold" />
         <Label Content="Border Size:" HorizontalAlignment="Left" Margin="380,0,0,0" VerticalAlignment="Top" Foreground="#E2DED0" FontSize="14" FontWeight="Bold" />
         <Label Content="Border color:" HorizontalAlignment="Left" Margin="195,0,0,0" VerticalAlignment="Top" Foreground="#E2DED0" FontSize="14" FontWeight="Bold" />
